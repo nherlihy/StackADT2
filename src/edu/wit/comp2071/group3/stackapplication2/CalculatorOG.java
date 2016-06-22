@@ -1,18 +1,15 @@
 package edu.wit.comp2071.group3.stackapplication2;
 
-import java.util.ArrayList;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
-
 public class CalculatorOG {
 	
 	private VectorStack<String> Queue;
-	private ArrayList<String> Equation;
+	private VectorStack<String> Operators;
+	private VectorStack<Integer> Operands;
 
 	CalculatorOG(){
 		Queue = new VectorStack<String>();
-		Equation = new ArrayList<String>();
+		Operators = new VectorStack<String>();
+		Operands = new VectorStack<Integer>();
 //		CalculatorGUI testCalc = new CalculatorGUI();
 	}
 
@@ -21,35 +18,9 @@ public class CalculatorOG {
 	}
 
 	public double calculate(){
-		double answer = 0;
-		ArrayList<String> equation = getEquation();
-
-		for(int x = (equation.size() - 1); x >= 0 ;x--){
-			System.out.println(equation.get(x));
-		}
-
-//	    ScriptEngineManager mgr = new ScriptEngineManager();
-//	    ScriptEngine engine = mgr.getEngineByName("JavaScript");
-//	    try{
-//	    	System.out.println(engine.eval(equation));
-//	    	return (int) engine.eval(equation);
-//	    }
-//	    catch(ScriptException e){
-//	    	System.out.println("error");
-//	    }
-
-	    return answer;
+		return 0;
 	}
 
-	private ArrayList<String> getEquation(){
-		if(!Queue.isEmpty()){
-			String str =  Queue.pop();
-			Equation.add(str);
-			getEquation();
-		}
-		return Equation;
-
-	}
 
 	public static void main(String[] args){
 		CalculatorOG test = new CalculatorOG();
