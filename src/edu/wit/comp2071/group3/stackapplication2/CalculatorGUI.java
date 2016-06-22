@@ -4,8 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+
 @SuppressWarnings("serial")
 public class CalculatorGUI extends JFrame implements ActionListener {
+	
+	CalculatorOG og = new CalculatorOG();
+	private VectorStack<String> queue;
     
     JPanel[] row = new JPanel[7]; // Initialize rows
     JButton[] button = new JButton[20]; // Initialize buttons
@@ -29,6 +33,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     
     CalculatorGUI() {
         super("Calculator OG"); // Title
+        queue = new VectorStack<String>();
         setDesign(); // Set Nimbus LookAndFeel
         setSize(200, 300); // Set Size of Calculator
         setResizable(false); // No Resizing 
@@ -164,24 +169,12 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) 
     {
-        if(ae.getSource() == button[0])
+        if(ae.getActionCommand().equals("C"))
         {
-        	//clear function
-        	if(operation == '=')
-			{
-				sDisplay = "C";
-				sInput = "C";
-				inputField.setText(sInput);
-				operation = ' ';
-			}
-			else 
-			{
-				sDisplay = sDisplay + "C";
-				sInput += "C";
-				inputField.setText(sInput);
-			}
+			queue.clear();
+			inputField.setText("");
         }
-        else if(ae.getSource() == button[1])
+        else if(ae.getActionCommand().equals("<"))
         {
             //backspace function
         	if(operation == '=')
@@ -189,37 +182,38 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "<";
 				sInput = "<";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("<");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "<";
 				sInput += "<";
 				inputField.setText(sInput);
+				og.addEntry("<");
 			}
         }
-        else if(ae.getSource() == button[2])
+        else if(ae.getActionCommand().equals("Q"))
         {
         	System.exit(0);
         }
-        if(ae.getSource() == button[3]) 
+        if(ae.getActionCommand().equals("/")) 
         {
-        	//divide function
         	if(operation == '=')
 			{
 				sDisplay = "/";
 				sInput = "/";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("/");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "/";
 				sInput += "/";
 				inputField.setText(sInput);
+				og.addEntry("/");
 			}
         }
-        else if(ae.getSource() == button[4])
+        else if(ae.getActionCommand().equals("7"))
         {
         	// 7
         	if(operation == '=')
@@ -227,16 +221,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "7";
 				sInput = "7";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("7");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "7";
 				sInput += "7";
 				inputField.setText(sInput);
+				og.addEntry("7");
 			}
         }
-        else if(ae.getSource() == button[5])
+        else if(ae.getActionCommand().equals("8"))
         {
         	// 8
         	if(operation == '=')
@@ -244,16 +239,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "8";
 				sInput = "8";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("8");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "8";
 				sInput += "8";
 				inputField.setText(sInput);
+				og.addEntry("8");
 			}
         }
-        else if(ae.getSource() == button[6])
+        else if(ae.getActionCommand().equals("9"))
         {
         	// 9
         	if(operation == '=')
@@ -261,16 +257,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "9";
 				sInput = "9";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("9");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "9";
 				sInput += "9";
 				inputField.setText(sInput);
+				og.addEntry("9");
 			}
         }
-        else if(ae.getSource() == button[7]) 
+        else if(ae.getActionCommand().equals("*"))
         {
         	//multiply function
         	if(operation == '=')
@@ -278,16 +275,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "*";
 				sInput = "*";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("*");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "*";
 				sInput += "*";
 				inputField.setText(sInput);
+				og.addEntry("*");
 			}
         }
-        else if(ae.getSource() == button[8])
+        else if(ae.getActionCommand().equals("4"))
         {
         	// 4
         	if(operation == '=')
@@ -295,16 +293,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "4";
 				sInput = "4";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("4");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "4";
 				sInput += "4";
 				inputField.setText(sInput);
+				og.addEntry("4");
 			}
         }
-        else if(ae.getSource() == button[9])
+        else if(ae.getActionCommand().equals("5"))
         {
         	// 5
         	if(operation == '=')
@@ -312,16 +311,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "5";
 				sInput = "5";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("5");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "5";
 				sInput += "5";
 				inputField.setText(sInput);
+				og.addEntry("5");
 			}
         }
-        else if(ae.getSource() == button[10])
+        else if(ae.getActionCommand().equals("6"))
         {
         	// 6
         	if(operation == '=')
@@ -329,16 +329,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "6";
 				sInput = "6";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("6");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "6";
 				sInput += "6";
 				inputField.setText(sInput);
+				og.addEntry("6");
 			}
         }
-        else if(ae.getSource() == button[11])
+        else if(ae.getActionCommand().equals("-"))
         {
         	//subtract function
         	if(operation == '=')
@@ -346,16 +347,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "-";
 				sInput = "-";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("-");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "-";
 				sInput += "-";
 				inputField.setText(sInput);
+				og.addEntry("-");
 			}
         }
-        else if(ae.getSource() == button[12])
+        else if(ae.getActionCommand().equals("1"))
         {
         	// 1
         	if(operation == '=')
@@ -363,16 +365,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "1";
 				sInput = "1";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("1");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "1";
 				sInput += "1";
 				inputField.setText(sInput);
+				og.addEntry("1");
 			}
         }
-        else if(ae.getSource() == button[13]) 
+        else if(ae.getActionCommand().equals("2"))
         {
         	// 2
         	if(operation == '=')
@@ -380,16 +383,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "2";
 				sInput = "2";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("2");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "2";
 				sInput += "2";
 				inputField.setText(sInput);
+				og.addEntry("2");
 			}
         }
-        else if(ae.getSource() == button[14])
+        else if(ae.getActionCommand().equals("3"))
         {
         	// 3
         	if(operation == '=')
@@ -397,16 +401,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "3";
 				sInput = "3";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("3");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "3";
 				sInput += "3";
 				inputField.setText(sInput);
+				og.addEntry("3");
 			}
         }
-        else if(ae.getSource() == button[15])
+        else if(ae.getActionCommand().equals("+"))
         {
         	//add function
         	if(operation == '=')
@@ -414,16 +419,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "+";
 				sInput = "+";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("+");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "+";
 				sInput += "+";
 				inputField.setText(sInput);
+				og.addEntry("+");
 			}
         }
-        else if(ae.getSource() == button[16])
+        else if(ae.getActionCommand().equals("0"))
         {
         	// 0
         	if(operation == '=')
@@ -431,16 +437,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "0";
 				sInput = "0";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("0");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "0";
 				sInput += "0";
 				inputField.setText(sInput);
+				og.addEntry("0");
 			}
         }
-        else if(ae.getSource() == button[17])
+        else if(ae.getActionCommand().equals("("))
         {
         	// (
         	if(operation == '=')
@@ -448,16 +455,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = "(";
 				sInput = "(";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry("(");
 			}
 			else 
 			{
 				sDisplay = sDisplay + "(";
 				sInput += "(";
 				inputField.setText(sInput);
+				og.addEntry("(");
 			}
         }
-        else if(ae.getSource() == button[18])
+        else if(ae.getActionCommand().equals(")"))
         {
         	// )
         	if(operation == '=')
@@ -465,31 +473,24 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 				sDisplay = ")";
 				sInput = ")";
 				inputField.setText(sInput);
-				operation = ' ';
+				og.addEntry(")");
 			}
 			else 
 			{
 				sDisplay = sDisplay + ")";
 				sInput += ")";
 				inputField.setText(sInput);
+				og.addEntry(")");
 			}
         }
-        else if(ae.getSource() == button[19])
+        else if(ae.getActionCommand().equals("="))
         {
         	//results function
-        	if(operation == '=')
-			{
 				sDisplay = "=";
 				sInput = "=";
-				inputField.setText(sInput);
-				operation = ' ';
-			}
-			else 
-			{
-				sDisplay = sDisplay + "=";
-				sInput += "=";
-				inputField.setText(sInput);
-			}
+				//inputField.setText(sInput);
+				og.calculate();
+				//displayField.setText();
         }
     }
     
