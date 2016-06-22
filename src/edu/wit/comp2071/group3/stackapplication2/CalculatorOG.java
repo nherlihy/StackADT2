@@ -1,5 +1,6 @@
 package edu.wit.comp2071.group3.stackapplication2;
 
+import java.util.ArrayList;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
@@ -7,35 +8,43 @@ import javax.script.ScriptException;
 public class CalculatorOG {
 	
 	private VectorStack<String> Queue;
-	private String Equation;
+	private ArrayList<String> Equation;
 
 	CalculatorOG(){
 		Queue = new VectorStack<String>();
-		Equation = "";
+		Equation = new ArrayList<String>();
+//		CalculatorGUI testCalc = new CalculatorGUI();
 	}
 
 	public void addEntry(String entry){
 		Queue.push(entry);
 	}
 
-	public void calculate(){
-		String equation = getEquation();
+	public double calculate(){
+		double answer = 0;
+		ArrayList<String> equation = getEquation();
 
-	    ScriptEngineManager mgr = new ScriptEngineManager();
-	    ScriptEngine engine = mgr.getEngineByName("JavaScript");
-	    try{
-	    	System.out.println(engine.eval(equation));
-	    }
-	    catch(ScriptException e){
-	    	System.out.println("error");
-	    }
+		for(int x = (equation.size() - 1); x >= 0 ;x--){
+			System.out.println(equation.get(x));
+		}
 
+//	    ScriptEngineManager mgr = new ScriptEngineManager();
+//	    ScriptEngine engine = mgr.getEngineByName("JavaScript");
+//	    try{
+//	    	System.out.println(engine.eval(equation));
+//	    	return (int) engine.eval(equation);
+//	    }
+//	    catch(ScriptException e){
+//	    	System.out.println("error");
+//	    }
+
+	    return answer;
 	}
 
-	private String getEquation(){
+	private ArrayList<String> getEquation(){
 		if(!Queue.isEmpty()){
 			String str =  Queue.pop();
-			Equation += str;
+			Equation.add(str);
 			getEquation();
 		}
 		return Equation;
