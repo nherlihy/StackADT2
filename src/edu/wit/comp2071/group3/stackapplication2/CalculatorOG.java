@@ -1,6 +1,5 @@
 package edu.wit.comp2071.group3.stackapplication2;
 
-import java.util.Scanner;
 import java.io.*;
 
 public class CalculatorOG {
@@ -17,17 +16,15 @@ public class CalculatorOG {
 		tempOperators = new VectorStack<Integer>();
 		tempOperands = new VectorStack<Double>();
 	}
+		
+	String line = "";
 	public void readFile(){
-		String line = "";
-       
-        System.out.println("Loading File: ");
- 
-        try{
+	    try{
             FileReader fileReader = new FileReader("data/math.txt"); // Open File
             BufferedReader bufferReader = new BufferedReader(fileReader); // Read File
            
             while((line = bufferReader.readLine()) != null){
-                System.out.println(line);;
+            	calculate();
             }
             bufferReader.close();
         } // end try
@@ -36,37 +33,32 @@ public class CalculatorOG {
         }
     } // end readFile
 	public void calculate(){
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Evaluation Of Arithmetic Expression Using Stacks Test\n");
-	    System.out.println("Enter expression\n");
-	    String input = scan.next();
-	    scan.close();
-	    //input = "" + input;
-	    input = input.replaceAll("-","+-");
+	    String filenput = line;
+	    filenput = filenput.replaceAll("-","+-");
 	    /* Store operands and operators in respective stacks */
-	    String temp = "";
-	    for (int i = 0;i < input.length();i++)
+	    String heldOperands = "";
+	    for (int i = 0;i < filenput.length();i++)
 	    {
-	        char ch = input.charAt(i);
-	        if (ch == '-')
-	            temp = "-" + temp;
-	        else if (ch != '+' &&  ch != '*' && ch != '/')
-	           temp = temp + ch;
+	        char heldOperators = filenput.charAt(i);
+	        if (heldOperators == '-')
+	        	heldOperands = "-" + heldOperands;
+	        else if (heldOperators != '+' &&  heldOperators != '*' && heldOperators != '/')
+	           heldOperands = heldOperands + heldOperators;
 	        else
 	        {
-	            Operands.push(Double.parseDouble(temp));
-	            Operators.push((int)ch);
-	            temp = "";
+	            Operands.push(Double.parseDouble(heldOperands));
+	            Operators.push((int)heldOperators);
+	            heldOperands = "";
 	        }
 	    }
-	    Operands.push(Double.parseDouble(temp));
+	    Operands.push(Double.parseDouble(heldOperands));
 	    /* Create char array of operators as per precedence */
 	    /* - sign is already taken care of while storing */
 	    char operators[] = {'/','*','+'};
 	    /* Evaluation of expression */
 	    for (int i = 0; i < 3; i++)
 	    {
-	        boolean it = false;
+	        boolean iterate = false;
 	        while (!Operators.isEmpty())
 	        {
 	            int optr = Operators.pop();
@@ -79,23 +71,24 @@ public class CalculatorOG {
 	                {    
 	                	if(operators[i] == '/' && v1 == 0){
 	                		System.out.println("Error: can't divide by '0'");
+	                		System.out.println("");
 	                	}
 	                	else {
 	                		tempOperands.push(v2 / v1);
-	                		it = true;
+	                		iterate = true;
 	                		break;
 	                	}
 	                }
 	                else if (i == 1)
 	                {
 	                    tempOperands.push(v2 * v1);
-	                    it = true;
+	                    iterate = true;
 	                    break;
 	                }
 	                else if (i == 2)
 	                {
 	                    tempOperands.push(v2 + v1);
-	                    it = true;
+	                    iterate = true;
 	                    break;
 	                }                                        
 	            }
@@ -114,12 +107,14 @@ public class CalculatorOG {
 	            Operators.push(tempOperators.pop());
 	        }
 	        /* Iterate again for same operator */
-	        if (it){
+	        if (iterate){
 	            i--;
 	        }
 	    }
 	    try{
-	    	System.out.println("\nResult = "+Operands.pop());
+	    	System.out.print(line);
+	    	System.out.println(" = "+Operands.pop());
+	    	System.out.println("");
 	    }
 	    catch(java.util.EmptyStackException e){
 	    	//If division by 0 then the stack is left with zero entries and no result
@@ -128,8 +123,7 @@ public class CalculatorOG {
 	}	
 
 	public static void main(String[] args){
-		CalculatorOG test = new CalculatorOG();
-		//test.calculate();
+		CalculatorOG test = new CalculatorOG(); 
 		test.readFile();
 	}
 }
