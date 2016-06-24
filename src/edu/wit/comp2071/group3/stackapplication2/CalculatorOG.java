@@ -1,6 +1,7 @@
 package edu.wit.comp2071.group3.stackapplication2;
 
 import java.util.Scanner;
+import java.io.*;
 
 public class CalculatorOG {
 	private VectorStack<Integer> Operators;
@@ -16,14 +17,31 @@ public class CalculatorOG {
 		tempOperators = new VectorStack<Integer>();
 		tempOperands = new VectorStack<Double>();
 	}
-	
+	public void readFile(){
+		String line = "";
+       
+        System.out.println("Loading File: ");
+ 
+        try{
+            FileReader fileReader = new FileReader("data/math.txt"); // Open File
+            BufferedReader bufferReader = new BufferedReader(fileReader); // Read File
+           
+            while((line = bufferReader.readLine()) != null){
+                System.out.println(line);;
+            }
+            bufferReader.close();
+        } // end try
+        catch(Exception ex){
+            System.out.println("Unable to open file");
+        }
+    } // end readFile
 	public void calculate(){
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Evaluation Of Arithmetic Expression Using Stacks Test\n");
 	    System.out.println("Enter expression\n");
 	    String input = scan.next();
 	    scan.close();
-	    input = "0" + input;
+	    //input = "" + input;
 	    input = input.replaceAll("-","+-");
 	    /* Store operands and operators in respective stacks */
 	    String temp = "";
@@ -97,6 +115,7 @@ public class CalculatorOG {
 
 	public static void main(String[] args){
 		CalculatorOG test = new CalculatorOG();
-		test.calculate();
+		//test.calculate();
+		test.readFile();
 	}
 }
