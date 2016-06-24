@@ -58,10 +58,15 @@ public class CalculatorOG {
 	            {
 	                /* if operator matches evaluate and store in temporary stack */
 	                if (i == 0)
-	                {
-	                    tempOperands.push(v2 / v1);
-	                    it = true;
-	                    break;
+	                {    
+	                	if(operators[i] == '/' && v1 == 0){
+	                		System.out.println("Error: can't divide by '0'");
+	                	}
+	                	else {
+	                		tempOperands.push(v2 / v1);
+	                		it = true;
+	                		break;
+	                	}
 	                }
 	                else if (i == 1)
 	                {
