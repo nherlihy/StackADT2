@@ -76,10 +76,15 @@ public class CalculatorOG {
 	            {
 	                /* if operator matches evaluate and store in temporary stack */
 	                if (i == 0)
-	                {
-	                    tempOperands.push(v2 / v1);
-	                    it = true;
-	                    break;
+	                {    
+	                	if(operators[i] == '/' && v1 == 0){
+	                		System.out.println("Error: can't divide by '0'");
+	                	}
+	                	else {
+	                		tempOperands.push(v2 / v1);
+	                		it = true;
+	                		break;
+	                	}
 	                }
 	                else if (i == 1)
 	                {
@@ -100,17 +105,26 @@ public class CalculatorOG {
 	                Operands.push(v2);
 	                tempOperators.push(optr);
 	            }                
-	        }    
+	        }
 	        /* Push back all elements from temporary stacks to main stacks */            
-	        while (!tempOperands.isEmpty())
+	        while (!tempOperands.isEmpty()){
 	            Operands.push(tempOperands.pop());
-	        while (!tempOperators.isEmpty())
+	        }
+	        while (!tempOperators.isEmpty()){
 	            Operators.push(tempOperators.pop());
+	        }
 	        /* Iterate again for same operator */
-	        if (it)
-	            i--;                            
-	    }    
-	    System.out.println("\nResult = "+Operands.pop());        
+	        if (it){
+	            i--;
+	        }
+	    }
+	    try{
+	    	System.out.println("\nResult = "+Operands.pop());
+	    }
+	    catch(java.util.EmptyStackException e){
+	    	//If division by 0 then the stack is left with zero entries and no result
+	    	//Will catch and just continue
+	    }
 	}	
 
 	public static void main(String[] args){
