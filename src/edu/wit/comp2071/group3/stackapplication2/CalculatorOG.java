@@ -1,9 +1,6 @@
 package edu.wit.comp2071.group3.stackapplication2;
 
-import java.util.*;
-//import java.io.BufferedReader;
-//import java.io.FileReader;
-//import java.io.IOException;
+import java.util.Scanner;
 
 public class CalculatorOG {
 	private VectorStack<Integer> Operators;
@@ -11,6 +8,7 @@ public class CalculatorOG {
 	private VectorStack<Integer> tempOperators;
 	private VectorStack<Double> tempOperands;
 	
+
 
 	CalculatorOG(){
 		Operators = new VectorStack<Integer>();
@@ -96,6 +94,7 @@ public class CalculatorOG {
 	    }    
 	    System.out.println("\nResult = "+Operands.pop());        
 	}	
+
 	public static void main(String[] args){
 		CalculatorOG test = new CalculatorOG();
 		test.calculate();
