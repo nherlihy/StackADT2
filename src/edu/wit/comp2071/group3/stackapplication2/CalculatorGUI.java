@@ -498,6 +498,5 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     {
         @SuppressWarnings("unused")
 		CalculatorGUI testCalc = new CalculatorGUI();
-    }
-    
+    }    
 }
