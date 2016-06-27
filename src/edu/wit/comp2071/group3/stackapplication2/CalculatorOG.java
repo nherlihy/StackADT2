@@ -18,9 +18,12 @@ public class CalculatorOG {
 	}
 		
 	String line = "";
-	public void readFile(){
+	
+	/** Reads through file and calculates each equation.
+    @param filePath of file to check spelling */
+	public void readFile(String filePath){
 	    try{
-            FileReader fileReader = new FileReader("data/math.txt"); // Open File
+            FileReader fileReader = new FileReader(filePath); // Open File
             BufferedReader bufferReader = new BufferedReader(fileReader); // Read File
            
             while((line = bufferReader.readLine()) != null){
@@ -32,11 +35,14 @@ public class CalculatorOG {
             System.out.println("Unable to open file");
         }
     } // end readFile
+
+	/** Calculates the equation using stacks */
 	public void calculate(){
 	    String filenput = line;
-	    filenput = filenput.replaceAll("-","+-");
-	    /* Store operands and operators in respective stacks */
 	    String heldOperands = "";
+	    filenput = filenput.replaceAll("-","+-");
+
+	    /* Store operands and operators in respective stacks */
 	    for (int i = 0;i < filenput.length();i++)
 	    {
 	        char heldOperators = filenput.charAt(i);
@@ -51,13 +57,15 @@ public class CalculatorOG {
 	            heldOperands = "";
 	        }
 	    }
+
 	    Operands.push(Double.parseDouble(heldOperands));
+
 	    /* Create char array of operators as per precedence */
 	    /* - sign is already taken care of while storing */
 	    char operators[] = {'/','*','+'};
+
 	    /* Evaluation of expression */
-	    for (int i = 0; i < 3; i++)
-	    {
+	    for (int i = 0; i < 3; i++){
 	        boolean iterate = false;
 	        while (!Operators.isEmpty())
 	        {
@@ -91,14 +99,15 @@ public class CalculatorOG {
 	                    iterate = true;
 	                    break;
 	                }                                        
-	            }
+	            } // end if
 	            else
 	            {
 	                tempOperands.push(v1);
 	                Operands.push(v2);
 	                tempOperators.push(optr);
 	            }                
-	        }
+	        } // end while
+
 	        /* Push back all elements from temporary stacks to main stacks */            
 	        while (!tempOperands.isEmpty()){
 	            Operands.push(tempOperands.pop());
@@ -110,20 +119,23 @@ public class CalculatorOG {
 	        if (iterate){
 	            i--;
 	        }
-	    }
+	    } // end for
+
+	    /* Print out the solution */
 	    try{
 	    	System.out.print(line);
-	    	System.out.println(" = "+Operands.pop());
+	    	System.out.println(" = "+ Operands.pop());
 	    	System.out.println("");
 	    }
 	    catch(java.util.EmptyStackException e){
 	    	//If division by 0 then the stack is left with zero entries and no result
 	    	//Will catch and just continue
 	    }
-	}	
+	} // end calculate
 
+	
 	public static void main(String[] args){
 		CalculatorOG test = new CalculatorOG(); 
-		test.readFile();
+		test.readFile("data/math.txt");
 	}
 }
