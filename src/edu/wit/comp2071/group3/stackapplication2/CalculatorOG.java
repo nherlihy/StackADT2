@@ -124,8 +124,7 @@ public class CalculatorOG {
 	    /* Print out the solution */
 	    try{
 	    	System.out.print(line);
-	    	System.out.println(" = "+ Operands.pop());
-	    	System.out.println("");
+	    	System.out.println(" = "+ Operands.pop() + "\n");
 	    }
 	    catch(java.util.EmptyStackException e){
 	    	//If division by 0 then the stack is left with zero entries and no result
